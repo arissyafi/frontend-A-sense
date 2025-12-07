@@ -20,24 +20,32 @@ function App() {
     setError("");
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) return;
 
     setLoading(true);
-    setError("");
+    setError(""); // Reset error lama
+    setResult(null); // Reset hasil lama
+
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      // Mengirim file ke Backend Render
       const response = await axios.post(`${API_BASE_URL}/predict`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setResult(response.data);
     } catch (err) {
       console.error(err);
-      setError("Gagal terhubung ke server. Pastikan server Render sudah aktif.");
+      
+      // --- PERBAIKAN DI SINI ---
+      // Tangkap pesan error spesifik dari Backend (app.py)
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error); // Tampilkan pesan dari server (misal: "Format salah!")
+      } else {
+        setError("Gagal terhubung ke server. Pastikan server Render aktif.");
+      }
     } finally {
       setLoading(false);
     }
