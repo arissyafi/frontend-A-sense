@@ -5,7 +5,7 @@ import axios from 'axios';
 // 🟢 KONFIGURASI BACKEND (GANTI INI DENGAN URL RENDER ANDA)
 // ==================================================================
 // Contoh: "https://neuro-api.onrender.com" (tanpa slash di akhir)
-const API_BASE_URL = "https://GANTI_DENGAN_URL_RENDER_ANDA.onrender.com"; 
+const API_BASE_URL = "https://a-sense.onrender.com"; 
 // ==================================================================
 
 function App() {
